@@ -70,8 +70,10 @@ public class Editorial {
 
 	@Override
 	public String toString() {
-		return "Editorial [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", libros=" + libros + "]";
+		return "Editorial [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
 	}
+
+	
 	
 	
 }

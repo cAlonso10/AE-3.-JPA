@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +25,10 @@ public class Libreria {
 	private String dueño;
 	@Embedded
 	private Direccion direccion;
-	@OneToMany(mappedBy="libreria", cascade=CascadeType.PERSIST)
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	@JoinTable(name="libreria_libro",
+		   joinColumns= { @JoinColumn(name="fk_id_libreria", referencedColumnName="id") }, 
+		   inverseJoinColumns= { @JoinColumn(name="fk_id_libro", referencedColumnName="id")}) 
 	private List<Libro> libros;
 	
 	public Libreria(Integer id, String nombre, String dueño, Direccion direccion, List<Libro> libros) {
@@ -80,9 +86,10 @@ public class Libreria {
 
 	@Override
 	public String toString() {
-		return "Libreria [id=" + id + ", nombre=" + nombre + ", dueño=" + dueño + ", direccion=" + direccion
-				+ ", libros=" + libros + "]";
+		return "Libreria [id=" + id + ", nombre=" + nombre + ", dueño=" + dueño + ", direccion=" + direccion + "]";
 	}
+
+	
 	
 	
 	

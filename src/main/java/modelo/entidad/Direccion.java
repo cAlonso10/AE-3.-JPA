@@ -48,6 +48,8 @@ public class Direccion {
 	public String toString() {
 		return "Direccion [tipoVia=" + tipoVia + ", nombreVia=" + nombreVia + ", ciudad=" + ciudad + "]";
 	}
+
+	
 	
 	
 	

@@ -46,29 +46,43 @@ public class Main {
 		e2.setDireccion(d2);
 		
 		//Librerias
+		List<Libreria> libreriaPegaso = new ArrayList<>();
+		List<Libreria> libreriaAtenas = new ArrayList<>();
 		Libreria li1 = new Libreria(null, "Pegaso", "Alejandro", null, null);
 		Direccion d3 = new Direccion();
 		d3.setTipoVia("Calle");
 		d3.setNombreVia("Once");
 		d3.setCiudad("Madrid");
 		li1.setDireccion(d3);
+		
 		Libreria li2 = new Libreria(null, "Atenas", "Guillermo", null, null);
 		Direccion d4 = new Direccion();
 		d4.setTipoVia("Calle");
 		d4.setNombreVia("Humilladero");
 		d4.setCiudad("Madrid");
 		li2.setDireccion(d4);
-		
+		libreriaPegaso.add(li1);
+		libreriaAtenas.add(li2);
 		//Libros
+
 				List<Libro> libros = new ArrayList<>();
-				Libro l1 = new Libro(null, "Cien años de soledad", 10, e1, a1, li1);
-				Libro l2 = new Libro(null, "Orgullo y prejuicio", 12, e2, a2, li1);
-				Libro l3 = new Libro(null, "It", 9, e1, a3, li1);
-				Libro l4 = new Libro(null, "El amor en los tiempos de colera", 5, e1, a1, li1);
-				Libro l5 = new Libro(null, "El resplandor", 23, e1, a3, li2);
-				Libro l6 = new Libro(null, "Crónica de una muerte anunciada", 18, e1, a1, li2);
-				Libro l7 = new Libro(null, "Emma", 14, e2, a2, li2);
-				Libro l8 = new Libro(null, "La torre oscura", 8, e1, a3, li2);
+				Libro l1 = new Libro(null, "Cien años de soledad", 10, e1, a1);
+				Libro l2 = new Libro(null, "Orgullo y prejuicio", 12, e2, a2);
+				Libro l3 = new Libro(null, "It", 9, e1, a3);
+				Libro l4 = new Libro(null, "El amor en los tiempos de colera", 5, e1, a1);
+				Libro l5 = new Libro(null, "El resplandor", 23, e1, a3);
+				Libro l6 = new Libro(null, "Crónica de una muerte anunciada", 18, e1, a1);
+				Libro l7 = new Libro(null, "Emma", 14, e2, a2);
+				Libro l8 = new Libro(null, "La torre oscura", 8, e1, a3);
+				
+				l1.setLibrerias(libreriaPegaso);
+				l2.setLibrerias(libreriaPegaso);
+				l3.setLibrerias(libreriaPegaso);
+				l4.setLibrerias(libreriaPegaso);
+				l5.setLibrerias(libreriaAtenas);
+				l6.setLibrerias(libreriaAtenas);
+				l7.setLibrerias(libreriaAtenas);
+				l8.setLibrerias(libreriaAtenas);
 				libros.add(l1);
 				libros.add(l2);
 				libros.add(l3);
@@ -108,17 +122,66 @@ Mostrar todas las librerías, con solamente sus libros asociados
 Mostrar todos los libros dados de alta, y en la librería en la que están.
 				 */
 
-				List<Libro> listaLibros = em.createQuery("from Libro l").getResultList();//select * from personas
+				//Mostrar todos los libros dados de alta, con su editorial y su autor
+				List<Libro> listaLibros = em.createQuery("from Libro l").getResultList();
 				for(Libro l : listaLibros) {
-					System.out.println(l.getTitulo());
-					System.out.println(l.getPrecio());
-					System.out.println(l.getId());
-					System.out.println(l.getAutor());
-					
+					System.out.println("###Libro###");
+					System.out.println("Libro [id=" + l.getId() + ", titulo=" + l.getTitulo() + ", precio=" + l.getPrecio() +"\n"+ l.getEditorial() + "\n"
+							+ l.getAutor());
+
+				}
+				System.out.println("-------------------------");
+				System.out.println("-------------------------");
+				System.out.println("-------------------------");
+				
+				//Mostrar todos los autores dados de alta, con sus libros asociados
+				List<Autor> listaAutores = em.createQuery("SELECT a FROM Autor a").getResultList();
+				for(Autor a : listaAutores) {
+				    System.out.println("####Autor####");
+				    System.out.println("Autor [id=" + a.getId() + ", nombre=" + a.getNombre() + ", apellidos=" + a.getApellidos() + "]");
+
+				    List<Libro> librosAutor = em.createQuery("SELECT l FROM Libro l WHERE l.autor.id = :idAutor")
+				            .setParameter("idAutor", a.getId())
+				            .getResultList();
+
+				    for(Libro l : librosAutor) {
+				        System.out.println("Libro [id=" + l.getId() + ", titulo=" + l.getTitulo() + "]");
+				    }
+				}
+				System.out.println("-------------------------");
+				System.out.println("-------------------------");
+				System.out.println("-------------------------");
+				
+				//Mostrar todas las librerías, con solamente sus libros asociados
+				/*List<Libreria> listaLibrerias = em.createQuery("SELECT li FROM Libreria li").getResultList();
+				for(Libreria li : listaLibrerias) {
+				    System.out.println("####Libreria####");
+				    System.out.println("Libreria [id=" + li.getId() + ", ciudad=" + li.getDireccion() + ", apellidos=" + li.getDueño() + ", apellidos=" + li.getNombre() +"]");
+
+				       List<Libro> librosLibreria = em.createQuery("SELECT l FROM Libro l WHERE l.libreria.id = :idLibreria")
+				            .setParameter("idLibreria", li.getId())
+				            .getResultList();
+
+				    for(Libro l : librosLibreria) {
+				        System.out.println("Libro [id=" + l.getId() + ", titulo=" + l.getTitulo() + "]");
+				    }
+				}*/
+				System.out.println("-------------------------");
+				System.out.println("-------------------------");
+				System.out.println("-------------------------");
+				
+				//Mostrar todos los libros dados de alta, y en la librería en la que están.
+				List<Libro> listaLibros2 = em.createQuery("SELECT lib FROM Libro lib").getResultList();
+				for(Libro lib : listaLibros2) {
+				    System.out.println("####Libro####");
+				    System.out.println("Libro [id=" + lib.getId() + ", titulo=" + lib.getTitulo() + ", precio=" + lib.getPrecio() +"\n"+ lib.getLibrerias());
+
 				}
 				
 				em.close();
 				emf.close();
+				
+				
 				
 	}
 
