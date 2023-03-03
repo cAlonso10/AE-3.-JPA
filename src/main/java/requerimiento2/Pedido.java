@@ -1,5 +1,6 @@
 package requerimiento2;
-import java.util.ArrayList;
+
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,22 +13,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "Estudiante")
-public class Estudiante {
+@Table(name = "Pedido")
+public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nombre;
-    private String apellido;
-    private Date fecha_nacimiento;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name="Matricula",
-	   joinColumns= { @JoinColumn(name="fk_id_estudiante", referencedColumnName="id") }, 
-	   inverseJoinColumns= { @JoinColumn(name="fk_id_curso", referencedColumnName="id")}) 
-    private List<Curso> cursos;
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    @JoinTable(name="pedido_producto",
+ 		   joinColumns= { @JoinColumn(name="fk_id_pedido", referencedColumnName="id") }, 
+ 		   inverseJoinColumns= { @JoinColumn(name="fk_id_producto", referencedColumnName="id")}) 
+    private List<Producto> productos;
 
-  
 }

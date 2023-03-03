@@ -1,8 +1,7 @@
 package requerimiento2;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,16 +13,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Profesor")
-public class Profesor {
+@Table(name = "Producto")
+public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    private String apellido;
-    private String especialidad;
+    private double precio;
     @ManyToOne
-    @JoinColumn(name = "fk_id_departamento")
-    private Departamento departamento;
+    @JoinColumn(name = "fk_categoria_id")
+    private Categoria categoria;
+    @ManyToMany(mappedBy = "productos")
+    private List<Pedido> pedidos;
 
 }
