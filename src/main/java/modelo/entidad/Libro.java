@@ -11,7 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="libro")
 @Entity
 @Table(name = "libros")
 public class Libro {
@@ -44,7 +49,7 @@ public class Libro {
 	public Libro() {
 		super();
 	}
-
+	@XmlAttribute(name = "id")
 	public Integer getId() {
 		return id;
 	}
@@ -52,7 +57,7 @@ public class Libro {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	@XmlElement
 	public String getTitulo() {
 		return titulo;
 	}
@@ -60,7 +65,7 @@ public class Libro {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
+	@XmlElement
 	public int getPrecio() {
 		return precio;
 	}
@@ -84,7 +89,8 @@ public class Libro {
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
-
+	@XmlElement(name = "librerias")
+	@XmlElementWrapper(name = "librerias")
 	public List<Libreria> getLibrerias() {
 		return librerias;
 	}

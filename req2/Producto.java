@@ -21,7 +21,7 @@ public class Producto {
     private String nombre;
     private double precio;
     @ManyToOne
-    @JoinColumn(name = "fk_categoria_id")
+    @JoinColumn(name = "fk_categoria_id", referencedColumnName="id")
     private Categoria categoria;
     @ManyToMany(mappedBy = "productos")
     private List<Pedido> pedidos;

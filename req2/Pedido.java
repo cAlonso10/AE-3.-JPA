@@ -15,18 +15,22 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "detalle_producto")
-public class DetalleProducto {
+@Table(name = "Pedido")
+public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String descripcion;
-    @OneToOne
-    @JoinColumn(name = "fk_id_producto", referencedColumnName = "id")
-    private Producto producto;
-
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    @ManyToMany
+    @JoinTable(name="pedido_producto",
+ 		   joinColumns= { @JoinColumn(name="fk_id_pedido", referencedColumnName="id") }, 
+ 		   inverseJoinColumns= { @JoinColumn(name="fk_id_producto", referencedColumnName="id")}) 
+    private List<Producto> productos;
+    
 }

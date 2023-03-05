@@ -12,7 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "autores")
 public class Autor {
@@ -39,7 +44,7 @@ public class Autor {
 	public Autor() {
 		super();
 	}
-
+	@XmlAttribute(name = "id")
 	public Integer getId() {
 		return id;
 	}
@@ -47,7 +52,7 @@ public class Autor {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	@XmlElement
 	public String getNombre() {
 		return nombre;
 	}
@@ -55,7 +60,7 @@ public class Autor {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	@XmlElement
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -63,7 +68,7 @@ public class Autor {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-
+	@XmlElement
 	public Date getFecha() {
 		return fecha;
 	}
@@ -71,7 +76,8 @@ public class Autor {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
+	@XmlElement(name = "libros")
+	@XmlElementWrapper(name = "libros")
 	public List<Libro> getLibros() {
 		return libros;
 	}

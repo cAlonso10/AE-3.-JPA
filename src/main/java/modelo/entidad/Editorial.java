@@ -10,7 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "editoriales")
 public class Editorial {
@@ -35,7 +40,7 @@ public class Editorial {
 	public Editorial() {
 		super();
 	}
-
+	@XmlAttribute(name = "id")
 	public Integer getId() {
 		return id;
 	}
@@ -43,7 +48,7 @@ public class Editorial {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	@XmlElement
 	public String getNombre() {
 		return nombre;
 	}
@@ -59,7 +64,8 @@ public class Editorial {
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
 	}
-
+	@XmlElement(name = "libros")
+	@XmlElementWrapper(name = "libros")
 	public List<Libro> getLibros() {
 		return libros;
 	}
