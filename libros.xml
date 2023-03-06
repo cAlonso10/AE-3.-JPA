@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<libro>
-    <precio>0</precio>
-    <titulo>Pruebas</titulo>
+<libro id="1">
+    <titulo>Cien años de soledad</titulo>
+    <precio>10</precio>
+    <editorial id="1">
+        <direccion>
+            <ciudad>Madrid</ciudad>
+            <nombreVia>Luchana</nombreVia>
+            <tipoVia>Calle</tipoVia>
+        </direccion>
+        <nombre>Penguin Random House</nombre>
+    </editorial>
+    <autor id="1">
+        <apellidos>García Márquez</apellidos>
+        <fecha>1927-03-06T00:00:00Z</fecha>
+        <nombre>Gabriel</nombre>
+    </autor>
+    <librerias>
+        <librerias id="1">
+            <direccion>
+                <ciudad>Madrid</ciudad>
+                <nombreVia>Once</nombreVia>
+                <tipoVia>Calle</tipoVia>
+            </direccion>
+            <dueño>Alejandro</dueño>
+            <nombre>Pegaso</nombre>
+        </librerias>
+    </librerias>
 </libro>
